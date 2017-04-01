@@ -36,6 +36,7 @@ resource "aws_instance" "server" {
   provisioner "file" {
     content     = "${data.template_file.master.rendered}"
     destination = "/tmp/master.json"
+    timeout     = "10m"
   }
 
   provisioner "remote-exec" {
