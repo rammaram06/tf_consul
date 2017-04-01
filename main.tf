@@ -27,6 +27,7 @@ resource "aws_instance" "server" {
   connection {
     user = "ubuntu"
     private_key = "${file(var.private_key_path)}"
+    timeout = "10m"
   }
 
   tags {
@@ -36,7 +37,6 @@ resource "aws_instance" "server" {
   provisioner "file" {
     content     = "${data.template_file.master.rendered}"
     destination = "/tmp/master.json"
-    timeout     = "10m"
   }
 
   provisioner "remote-exec" {
